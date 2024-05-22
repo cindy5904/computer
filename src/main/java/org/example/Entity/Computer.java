@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,6 +21,15 @@ public class Computer {
         private float price;
         @Embedded
         private Identification identification;
+
+        @ManyToOne
+        @JoinColumn(name = "processor_id")
+        private Processeur processeur;
+
+        @ManyToOne
+        @JoinColumn(name = "systemId")
+
+        private SystemExplorer systemExplorers;
 
     }
 

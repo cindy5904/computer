@@ -2,6 +2,8 @@ package org.example;
 
 import org.example.Entity.Computer;
 import org.example.Entity.Identification;
+import org.example.Entity.Processeur;
+import org.example.Entity.SystemExplorer;
 
 import javax.persistence.*;
 import java.util.List;
@@ -48,6 +50,17 @@ public class IHM {
     }
 
     private void createComputer (){
+        Processeur processeur = Processeur.builder()
+                .type("type")
+                .nbCoeur(4)
+                .build();
+
+
+        SystemExplorer systemExplorer1 = SystemExplorer.builder()
+                .name("Système 1")
+                .build();
+
+
         Identification identification = Identification.builder()
                 .addressImac("00:1A:2B:3C:4D:5E")
                 .addressIp("192.168.0.1")
@@ -56,9 +69,14 @@ public class IHM {
                 .name("MyComputer")
                 .price(1200.50f)
                 .identification(identification)
+                .processeur(processeur)
+                .systemExplorers(systemExplorer1)
                 .build();
 
+
         em.getTransaction().begin();
+        em.persist(processeur);
+        em.persist(systemExplorer1);
         em.persist(computer);
         em.getTransaction().commit();
     }
