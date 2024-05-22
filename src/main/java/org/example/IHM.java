@@ -48,14 +48,14 @@ public class IHM {
     }
 
     private void createComputer (){
-//        Identification identification = Identification.builder()
-//                .addressImac("00:1A:2B:3C:4D:5E")
-//                .addressIp("192.168.0.1")
-//                .build();
+        Identification identification = Identification.builder()
+                .addressImac("00:1A:2B:3C:4D:5E")
+                .addressIp("192.168.0.1")
+                .build();
         Computer computer = Computer.builder()
                 .name("MyComputer")
                 .price(1200.50f)
-//                .identification(identification)
+                .identification(identification)
                 .build();
 
         em.getTransaction().begin();
