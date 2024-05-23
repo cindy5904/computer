@@ -28,8 +28,10 @@ public class Computer {
 
         @ManyToOne
         @JoinColumn(name = "systemId")
-
         private SystemExplorer systemExplorers;
+
+        @ManyToMany(mappedBy = "computers")
+        private List<Peripherique> peripheriques ;
 
     }
 

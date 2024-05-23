@@ -1,11 +1,9 @@
 package org.example;
 
-import org.example.Entity.Computer;
-import org.example.Entity.Identification;
-import org.example.Entity.Processeur;
-import org.example.Entity.SystemExplorer;
+import org.example.Entity.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,7 +12,10 @@ public class IHM {
     EntityManager em = emf.createEntityManager();
 
     Scanner sc = new Scanner(System.in);
-
+    private IhmPeripherique ihmPeripherique;
+    public IHM() {
+        this.ihmPeripherique = new IhmPeripherique();
+    }
 
     public void start (){
         while (true){
@@ -24,6 +25,7 @@ public class IHM {
             System.out.println("3/ afficher par id");
             System.out.println("4/ supprimer");
             System.out.println("5/ editer");
+            System.out.println("6/ Menu Peripherique");
             int entry = sc.nextInt();
             sc.nextLine();
             switch (entry){
@@ -42,6 +44,9 @@ public class IHM {
                 case 5:
                     editComputer();
                     break;
+                case 6:
+                    ihmPeripherique.start();
+                    break;
                 default:
                     return;
             }
@@ -50,6 +55,12 @@ public class IHM {
     }
 
     private void createComputer (){
+
+        Peripherique peripherique = Peripherique.builder()
+                .name("Peripherique")
+                .description("Un peripherique ")
+                .build();
+
         Processeur processeur = Processeur.builder()
                 .type("type")
                 .nbCoeur(4)
@@ -60,23 +71,25 @@ public class IHM {
                 .name("Système 1")
                 .build();
 
-
         Identification identification = Identification.builder()
                 .addressImac("00:1A:2B:3C:4D:5E")
                 .addressIp("192.168.0.1")
                 .build();
+
         Computer computer = Computer.builder()
                 .name("MyComputer")
                 .price(1200.50f)
                 .identification(identification)
                 .processeur(processeur)
                 .systemExplorers(systemExplorer1)
+                .peripheriques(new ArrayList<>())
                 .build();
 
 
         em.getTransaction().begin();
         em.persist(processeur);
         em.persist(systemExplorer1);
+        em.persist(peripherique);
         em.persist(computer);
         em.getTransaction().commit();
     }
@@ -123,5 +136,9 @@ public class IHM {
             computer.setPrice(1000.99f);
         }
         transaction.commit();
+    }
+
+    private void CreateComputer () {
+
     }
 }
